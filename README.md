@@ -40,10 +40,13 @@ Create a `.env` file in the root directory and add your variables (example):
 ```env
 DB_HOST=localhost
 DB_PORT=5432
-DB_USER=root
-DB_PASS=password
-DB_NAME=lms_db
-JWT_SECRET=your_super_secret_key
+DB_USERNAME=postgres
+DB_PASSWORD=password
+DB_DATABASE=lms
+JWT_ACCESS_SECRET=mySuperSecretAccessJWTKey
+JWT_ACCESS_EXPIRES_IN=15m
+JWT_REFRESH_SECRET=mySuperSecreRefreshtJWTKey
+JWT_REFRESH_EXPIRES_IN=7d
 ```
 
 ## Running the app
