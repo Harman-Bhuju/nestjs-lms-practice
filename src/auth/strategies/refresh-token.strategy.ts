@@ -27,7 +27,7 @@ export class RefreshTokenStrategy extends PassportStrategy(Strategy, 'refresh-to
     const refreshToken = req.cookies.refreshToken
 
     const user = await this.authService.validateRefreshToken(
-      payload.sub,
+      payload.id,
       refreshToken
     );
 

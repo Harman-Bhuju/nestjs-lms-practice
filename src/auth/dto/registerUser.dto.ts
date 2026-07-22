@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { Transform } from 'class-transformer';
 import {
   IsEmail,
@@ -10,41 +11,65 @@ import {
 
 
 export class RegisterDto {
+  @ApiProperty({
+    example: 'John',
+    description: 'First name of the user',
+  })
+  @Transform(({ value }) => {
+    if (typeof value !== 'string') return value;
 
-  @Transform(({ value }) =>
-  value.trim().charAt(0).toUpperCase() +
-  value.trim().slice(1).toLowerCase()
-  )
+    const trimmed = value.trim();
+
+    return (
+      trimmed.charAt(0).toUpperCase() +
+      trimmed.slice(1).toLowerCase()
+    );
+  })
   @IsNotEmpty()
   @IsString()
   firstName!: string;
 
+  @ApiProperty({
+    example: 'Doe',
+    description: 'Last name of the user',
+  })
+  @Transform(({ value }) => {
+    if (typeof value !== 'string') return value;
 
-  @Transform(({ value }) =>
-  value.trim().charAt(0).toUpperCase() +
-  value.trim().slice(1).toLowerCase()
-  )
+    const trimmed = value.trim();
+
+    return (
+      trimmed.charAt(0).toUpperCase() +
+      trimmed.slice(1).toLowerCase()
+    );
+  })
   @IsNotEmpty()
   @IsString()
   lastName!: string;
 
-  @Transform(({ value }) => value.trim().toLowerCase())
+  @ApiProperty({
+    example: 'johndoe@gmail.com',
+    description: 'Email of the user',
+  })
+  @Transform(({ value }) =>
+    typeof value === 'string' ? value.trim().toLowerCase() : value,
+  )
   @IsNotEmpty()
   @IsEmail()
   email!: string;
 
-  @Transform(({ value }) => value.trim())
+  @ApiProperty({
+    example: 'Password123.hello',
+    description:
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+  })
   @IsNotEmpty()
   @IsString()
   @MinLength(8)
   @MaxLength(30)
-  @Matches(
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
-    {
-      message:
-        'Password must contain at least one uppercase letter, one lowercase letter and one number',
-    },
-  )
+  @Matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, {
+    message:
+      'Password must contain at least one uppercase letter, one lowercase letter, and one number',
+  })
   password!: string;
-
 }

@@ -22,7 +22,7 @@ export class AccessTokenStrategy extends PassportStrategy(Strategy, 'access-toke
   async validate(payload: AccessTokenPayload) {
 
     const user = await this.authService.validateAccessToken(
-      payload.sub,
+      payload.id,
       payload.email,
       payload.role,
     );
