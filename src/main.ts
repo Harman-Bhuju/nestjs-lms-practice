@@ -3,8 +3,21 @@ import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import cookieParser from "cookie-parser"
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { MyLoggerService } from './logger/logger.service';
+import { Logger } from 'nestjs-pino';
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule,{
+    //logger: ['log', 'fatal', 'error', 'warn', 'debug', and 'verbose']
+    bufferLogs: true
+  });
+
+  //customized
+  // app.useLogger(app.get(MyLoggerService))
+
+  //pino logger
+  app.useLogger(app.get(Logger))
+
+  app.useLogger
 
   app.use(cookieParser());
 

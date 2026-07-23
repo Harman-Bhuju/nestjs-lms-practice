@@ -8,6 +8,9 @@ import { UserModule } from './user/user.module';
 import { User } from './user/entities/user.entity';
 import { CoursesModule } from './courses/courses.module';
 import { Course } from './courses/entities/course.entity';
+import { LoggerModule } from 'nestjs-pino';
+import { MyLoggerModule } from './logger/logger.module';
+
 
 @Module({
   imports: [
@@ -32,6 +35,8 @@ import { Course } from './courses/entities/course.entity';
     AuthModule,
     UserModule,
     CoursesModule,
+    MyLoggerModule,
+    LoggerModule.forRoot(),
    ],
 
   controllers: [AppController],
