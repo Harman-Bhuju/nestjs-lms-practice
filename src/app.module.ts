@@ -26,7 +26,7 @@ import { Course } from './courses/entities/course.entity';
       password: configService.get('DB_PASSWORD'),
       database: configService.get('DB_DATABASE'),
       entities: [User,Course],
-      synchronize: true,        
+      synchronize: false,        
       }),
     }),
     AuthModule,
@@ -38,3 +38,11 @@ import { Course } from './courses/entities/course.entity';
   providers: [AppService],
 })
 export class AppModule {}
+
+
+// npm run migration:run
+// npm run migration:revert
+// npm run migration:show
+
+// npm run migration:create -- src/core/CONFIG/migrations/AddUsersTable
+// npm run migration:generate -- src/core/CONFIG/migrations/AddUsersTable
